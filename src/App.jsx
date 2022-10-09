@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Icons from './components/Icons'
 
 function App() {
   const [search, setSearch] = useState("Buenos aires")
   const [values, setValues] = useState("")
+  const [icon, setIcon] = useState("")
+
 
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${search}&lang=es&units=metric&appid=${import.meta.env.VITE_APP_API_KEY}`
 
@@ -14,7 +17,7 @@ function App() {
         if (data.cod >= 400) {
           setValues(false)
         } else {
-          // setIcon(data.weather[0].main)
+          setIcon(data.weather[0].main)
           setValues(data)
         }
       })
@@ -36,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <h2>weather app</h2>
+        <h2>Weather app</h2>
         <button>
           <input
             onKeyDown={handleSearch}
@@ -51,7 +54,9 @@ function App() {
           (values) ? (
             <div>
               <h2>{values.name}</h2>
+              <h3>{values.sys.country}</h3>
               <p>{values.main.temp.toFixed(0)}&deg;</p>
+              <img src={Icons(icon)} alt="icon weather" />
               <div>
                 <p> {values.main.temp_min.toFixed(0)}&deg;  |  {values.main.temp_max.toFixed(0)}&deg;</p>
               </div>
