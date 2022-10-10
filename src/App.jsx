@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Footer from './components/Footer'
 import Icons from './components/Icons'
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   const [icon, setIcon] = useState("")
 
 
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${search}&lang=es&units=metric&appid=${import.meta.env.VITE_APP_API_KEY}`
+  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${search}&lang=es&units=metric&appid=${import.meta.env.VITE_APP_API_KEY}&lang=es`
 
   const getData = async () => {
     await fetch(URL)
@@ -54,7 +55,6 @@ function App() {
           (values) ? (
             <div>
               <h2>{values.name}</h2>
-              <h3>{values.sys.country}</h3>
               <p>{values.main.temp.toFixed(0)}&deg;</p>
               <img src={Icons(icon)} alt="icon weather" />
               <div>
@@ -66,6 +66,7 @@ function App() {
           )
         }
       </div>
+      <Footer />
     </div>
   )
 }
